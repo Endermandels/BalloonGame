@@ -1,8 +1,9 @@
 # CLOSED
 
+1. Get blank web page with title
+
 # OPEN
 
-1. Get blank web page with title
 2. Draw balloon to middle of web page
 3. Shrink balloon at a constant rate over time
 4. Grow balloon when it is clicked
