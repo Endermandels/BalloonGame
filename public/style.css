@@ -16,11 +16,10 @@ h1 {
     align-items: center; /* align items vertically */
     height: 700px;
     border: 1px solid black;
-    transform: scale(1);
 }
 
 .balloon-svg {
     border: 1px solid black;
-    width: 100px;
-    height: 100px;
+    transform: scale(1); /* transforms width and height based on a scalar */
+    user-select: none; /* prevents dragging the image */
 }
