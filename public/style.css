@@ -15,5 +15,12 @@ h1 {
     justify-content: center; /* align items horizontally */
     align-items: center; /* align items vertically */
     height: 700px;
-    /* border: 1px solid black; */
+    border: 1px solid black;
+    transform: scale(1);
+}
+
+.balloon-svg {
+    border: 1px solid black;
+    width: 100px;
+    height: 100px;
 }
