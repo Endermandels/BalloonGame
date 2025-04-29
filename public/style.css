@@ -9,3 +9,11 @@ h1 {
 .header {
     text-align: center;
 }
+
+.balloon-div {
+    display: flex;
+    justify-content: center; /* align items horizontally */
+    align-items: center; /* align items vertically */
+    height: 700px;
+    /* border: 1px solid black; */
+}

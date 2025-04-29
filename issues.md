@@ -1,10 +1,10 @@
 # CLOSED
 
 1. Get blank web page with title
+2. Draw balloon to middle of web page
 
 # OPEN
 
-2. Draw balloon to middle of web page
 3. Shrink balloon at a constant rate over time
 4. Grow balloon when it is clicked
 5. Make balloon pop when it has grown beyond a certain percentage
@@ -14,3 +14,5 @@
 9. Make boy happy if balloon is inflated enough for long enough
 
 # BACKLOG
+
+- Fine tune balloon position
