@@ -8,10 +8,10 @@
 6. Display boy in bottom right (visual novel style)
 7. Make boy sad if balloon pops
 8. Make boy sad if balloon is not inflated enough for long enough
+9. Make boy happy if balloon is inflated enough for long enough
 
 # OPEN
 
-9. Make boy happy if balloon is inflated enough for long enough
 
 # BACKLOG
 

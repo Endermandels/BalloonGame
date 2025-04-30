@@ -13,34 +13,53 @@ let shrinkInterval = setInterval(() => {
     }
 }, 50); // update every 50ms
 
-let popped = false;
+let popped = false; // Game loss
+let satisfied = false; // Game win
 let scale = 1;
 const baseSize = 100;
 const shrinkRate = 0.005;
 const inflateRate = 0.1;
 const minScale = 0.2;
-const maxScale = 3.5;
-const minExcited = 3.0;
+const maxScale = 5.5;
+const minExcited = 4.5;
 const timeUntilSad = 3.0; // in seconds
 const timeExcitedUntilSatisfied = 1.0; // in seconds
 
-setTimeout(onGameTimeout, timeUntilSad*1000);
-
-function onGameTimeout() {
-    pop();
-}
+let gameTimeout = setTimeout(onGameTimeout, timeUntilSad*1000);
+let satisfyTimeout = null;
 
 function pop() {
+    // Game loss
     popped = true;
+    if (satisfyTimeout) clearTimeout(satisfyTimeout);
+    satisfyTimeout = null;
+    if (inflateInterval) clearInterval(inflateInterval);
+    inflateInterval = null;
+    if (shrinkInterval) clearInterval(shrinkInterval);
+    shrinkInterval = null;
     balloon.classList.add("invisible");
     explosion.classList.remove("invisible");
     boy_laugh.classList.add("invisible");
     boy_smile.classList.add("invisible");
     boy_sad.classList.remove("invisible");
+}
+
+function onGameTimeout() {
+    pop();
+}
+
+function onSatisfyTimeout() {
+    // Game win
+    satisfied = true;
+    if (gameTimeout) clearTimeout(gameTimeout);
+    gameTimeout = null;
     if (inflateInterval) clearInterval(inflateInterval);
     inflateInterval = null;
     if (shrinkInterval) clearInterval(shrinkInterval);
     shrinkInterval = null;
+    boy_laugh.classList.add("invisible");
+    boy_smile.classList.add("invisible");
+    boy_satisfied.classList.remove("invisible");
 }
 
 balloon.addEventListener('mousedown', onBalloonMouseDown);
@@ -48,7 +67,7 @@ balloon.addEventListener('mouseleave', onBalloonMouseUp); // mouse left the ball
 balloon.addEventListener('mouseup', onBalloonMouseUp);
 
 function onBalloonMouseDown() {
-    if (inflateInterval || popped) return;
+    if (inflateInterval || popped || satisfied) return;
 
     clearInterval(shrinkInterval);
     shrinkInterval = null;
@@ -57,6 +76,7 @@ function onBalloonMouseDown() {
             if (scale > minExcited && boy_laugh.classList.contains("invisible")) {
                 boy_smile.classList.add("invisible");
                 boy_laugh.classList.remove("invisible");
+                if (!satisfyTimeout) satisfyTimeout = setTimeout(onSatisfyTimeout, timeExcitedUntilSatisfied*1000);
             }
             scale += inflateRate;
             balloon.style.transform = `scale(${scale})`;
@@ -67,7 +87,7 @@ function onBalloonMouseDown() {
 }
 
 function onBalloonMouseUp() {
-    if (shrinkInterval || popped) return;
+    if (shrinkInterval || popped || satisfied) return;
 
     clearInterval(inflateInterval);
     inflateInterval = null;
@@ -77,6 +97,8 @@ function onBalloonMouseUp() {
             if (scale < minExcited && boy_smile.classList.contains("invisible")) {
                 boy_smile.classList.remove("invisible");
                 boy_laugh.classList.add("invisible");
+                if (satisfyTimeout) clearTimeout(satisfyTimeout);
+                satisfyTimeout = null;
             }
             scale -= shrinkRate;
             balloon.style.transform = `scale(${scale})`;
