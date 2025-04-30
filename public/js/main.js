@@ -21,7 +21,27 @@ const inflateRate = 0.1;
 const minScale = 0.2;
 const maxScale = 3.5;
 const minExcited = 3.0;
+const timeUntilSad = 3.0; // in seconds
+const timeExcitedUntilSatisfied = 1.0; // in seconds
 
+setTimeout(onGameTimeout, timeUntilSad*1000);
+
+function onGameTimeout() {
+    pop();
+}
+
+function pop() {
+    popped = true;
+    balloon.classList.add("invisible");
+    explosion.classList.remove("invisible");
+    boy_laugh.classList.add("invisible");
+    boy_smile.classList.add("invisible");
+    boy_sad.classList.remove("invisible");
+    if (inflateInterval) clearInterval(inflateInterval);
+    inflateInterval = null;
+    if (shrinkInterval) clearInterval(shrinkInterval);
+    shrinkInterval = null;
+}
 
 balloon.addEventListener('mousedown', onBalloonMouseDown);
 balloon.addEventListener('mouseleave', onBalloonMouseUp); // mouse left the balloon rect
@@ -41,14 +61,7 @@ function onBalloonMouseDown() {
             scale += inflateRate;
             balloon.style.transform = `scale(${scale})`;
         } else {
-            // Pop
-            popped = true;
-            balloon.classList.add("invisible");
-            explosion.classList.remove("invisible");
-            boy_laugh.classList.add("invisible");
-            boy_sad.classList.remove("invisible");
-            clearInterval(inflateInterval);
-            inflateInterval = null;
+            pop();
         }
     }, 10); // update every 50ms
 }
