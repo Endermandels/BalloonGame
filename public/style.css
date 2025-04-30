@@ -23,3 +23,11 @@ h1 {
     transform: scale(1); /* transforms width and height based on a scalar */
     user-select: none; /* prevents dragging the image */
 }
+
+.explosion-img {
+    border: 1px solid black;
+}
+
+.invisible {
+    display: none;
+}
