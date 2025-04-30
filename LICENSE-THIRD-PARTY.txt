@@ -1,5 +1,6 @@
 Icon and balloon image made by Google from https://icon-icons.com/icon/balloon/109398, used under Apache License 2.0.
 Explosion image made by Icons8 from https://icon-icons.com/icon/flash-explosion/3320, used under CC BY 4.0.
+Boy images made by Perchance AI Image Generator from https://perchance.org/ai-text-to-image-generator.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

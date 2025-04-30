@@ -1,5 +1,9 @@
 const balloon = document.querySelector(".balloon-svg");
 const explosion = document.querySelector(".explosion-img");
+const boy_smile = document.querySelector(".boy-smile-img");
+const boy_laugh = document.querySelector(".boy-laugh-img");
+const boy_sad = document.querySelector(".boy-sad-img");
+const boy_satisfied = document.querySelector(".boy-satisfied-img");
 
 let inflateInterval = null;
 let shrinkInterval = setInterval(() => {
@@ -16,6 +20,7 @@ const shrinkRate = 0.005;
 const inflateRate = 0.1;
 const minScale = 0.2;
 const maxScale = 3.5;
+const minExcited = 3.0;
 
 
 balloon.addEventListener('mousedown', onBalloonMouseDown);
@@ -29,13 +34,19 @@ function onBalloonMouseDown() {
     shrinkInterval = null;
     inflateInterval = setInterval(() => {
         if (scale < maxScale) {
+            if (scale > minExcited && boy_laugh.classList.contains("invisible")) {
+                boy_smile.classList.add("invisible");
+                boy_laugh.classList.remove("invisible");
+            }
             scale += inflateRate;
             balloon.style.transform = `scale(${scale})`;
         } else {
             // Pop
             popped = true;
-            balloon.classList.toggle("invisible");
-            explosion.hidden = false;
+            balloon.classList.add("invisible");
+            explosion.classList.remove("invisible");
+            boy_laugh.classList.add("invisible");
+            boy_sad.classList.remove("invisible");
             clearInterval(inflateInterval);
             inflateInterval = null;
         }
@@ -48,7 +59,12 @@ function onBalloonMouseUp() {
     clearInterval(inflateInterval);
     inflateInterval = null;
     shrinkInterval = setInterval(() => {
+        
         if (scale > minScale) {
+            if (scale < minExcited && boy_smile.classList.contains("invisible")) {
+                boy_smile.classList.remove("invisible");
+                boy_laugh.classList.add("invisible");
+            }
             scale -= shrinkRate;
             balloon.style.transform = `scale(${scale})`;
         }
